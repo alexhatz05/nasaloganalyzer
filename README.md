@@ -11,10 +11,13 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 8. The log file contains malformed entries; for each malformed line, display an error message and the line number.
 
 **How to use**
+
 []
 
 **Dependencies**
+
 []
 
 **Assumptions**
+
 []
