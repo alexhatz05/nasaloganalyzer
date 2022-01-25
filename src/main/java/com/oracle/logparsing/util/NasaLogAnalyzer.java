@@ -1,4 +1,4 @@
-package com.oracle.logparsing;
+package com.oracle.logparsing.util;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;

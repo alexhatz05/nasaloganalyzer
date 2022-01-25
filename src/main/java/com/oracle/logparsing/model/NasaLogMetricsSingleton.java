@@ -1,4 +1,4 @@
-package com.oracle.logparsing;
+package com.oracle.logparsing.model;
 
 import java.util.HashMap;
 
