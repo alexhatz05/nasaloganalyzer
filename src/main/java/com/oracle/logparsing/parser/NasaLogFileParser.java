@@ -1,6 +1,8 @@
 package com.oracle.logparsing.parser;
 
 import com.oracle.logparsing.model.LoggedRequest;
+import com.oracle.logparsing.model.NasaLogMetricsSingleton;
+import com.oracle.logparsing.util.ConsoleColors;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,9 +12,8 @@ import java.util.regex.Pattern;
 
 public class NasaLogFileParser {
 
-    private static final String RESET_COLOUR = "\u001B[0m";
-    private static final String RED_COLOUR = "\u001B[31m";
     private int lineCounter = 0;
+    private NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
     public static Scanner loadLogFile() throws FileNotFoundException {
         Scanner scanner = new Scanner(new File("/home/sword/Desktop/access_log_Aug95"));
@@ -20,7 +21,6 @@ public class NasaLogFileParser {
     }
 
     public void parseLogFile(Scanner scanner) {
-
         while (scanner.hasNextLine()) {
             lineCounter++;
             String loggedRequestPattern = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
@@ -30,7 +30,8 @@ public class NasaLogFileParser {
             Matcher matcher = p.matcher(line);
 
             if (!matcher.matches()) {
-                System.out.println(RED_COLOUR + "[Line " + lineCounter + "] ERROR! Malformed line" + RESET_COLOUR);
+                System.out.println(ConsoleColors.RED_COLOUR + "[Line " + lineCounter + "] ERROR! Malformed line"
+                        + ConsoleColors.RESET_COLOUR);
                 continue;
             }
 
@@ -39,7 +40,16 @@ public class NasaLogFileParser {
             int responseCode = Integer.parseInt(matcher.group(5));
 
             LoggedRequest loggedRequest = new LoggedRequest(host, request, responseCode);
-
+            updateMetrics(loggedRequest);
         }
+    }
+
+    public void updateMetrics(LoggedRequest loggedRequest) {
+        nasaLogMetricsSingleton.increaseTotalRequests();
+
+        if(loggedRequest.isSuccessful())
+            nasaLogMetricsSingleton.increaseUnsuccessfulRequests();
+        else
+            nasaLogMetricsSingleton.increaseUnsuccessfulRequests();
     }
 }

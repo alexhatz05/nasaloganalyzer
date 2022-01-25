@@ -9,6 +9,7 @@ public class NasaLogMetricsSingleton {
     private HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
     private int successfulRequests = 0;
     private int unsuccessfulRequests = 0;
+    private int totalRequests = 0;
 
     private NasaLogMetricsSingleton() {
     }
@@ -51,16 +52,34 @@ public class NasaLogMetricsSingleton {
         this.unsuccessfulReqPages = unsuccessfulReqPages;
     }
 
+    public int getTotalRequests() {
+        return totalRequests;
+    }
+
+    public void setTotalRequests(int totalRequests) {
+        this.totalRequests = totalRequests;
+    }
+
     /*Util*/
 
+    public void increaseTotalRequests() {
+        this.totalRequests++;
+    }
+
+    public void increaseSuccessfulRequests() {
+        this.successfulRequests++;
+    }
+
+    public void increaseUnsuccessfulRequests() {
+        this.unsuccessfulRequests++;
+    }
+
     public void addEntryInRequestedPages(String url) {
-        requestedPages.put(url, requestedPages.containsKey(url) ?
-                requestedPages.get(url) + 1 : 1);
+        requestedPages.put(url, requestedPages.containsKey(url) ? requestedPages.get(url) + 1 : 1);
     }
 
     public void addEntryInUnsuccessfulPages(String url) {
-        unsuccessfulReqPages.put(url, unsuccessfulReqPages.containsKey(url) ?
-                unsuccessfulReqPages.get(url) + 1 : 1);
+        unsuccessfulReqPages.put(url, unsuccessfulReqPages.containsKey(url) ? unsuccessfulReqPages.get(url) + 1 : 1);
     }
 
 }

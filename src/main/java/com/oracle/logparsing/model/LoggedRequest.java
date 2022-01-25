@@ -2,12 +2,12 @@ package com.oracle.logparsing.model;
 
 public class LoggedRequest {
 
+    int requestCode;
     private String host;
     private String timestamp;
     private String request;
-    int requestCode;
 
-    public LoggedRequest(String host, String request, int requestCode){
+    public LoggedRequest(String host, String request, int requestCode) {
         this.host = host;
         this.request = request;
         this.requestCode = requestCode;
@@ -15,7 +15,9 @@ public class LoggedRequest {
 
     /*Getters and Setters*/
 
-    public String getHost() { return host; }
+    public String getHost() {
+        return host;
+    }
 
     public void setHost(String host) {
         this.host = host;
@@ -43,6 +45,12 @@ public class LoggedRequest {
 
     public void setRequestCode(int requestCode) {
         this.requestCode = requestCode;
+    }
+
+    /*Methods*/
+
+    public boolean isSuccessful() {
+        return (this.requestCode >= 200 && this.requestCode < 400) ? true : false;
     }
 
 }
