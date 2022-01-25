@@ -7,11 +7,15 @@ public class LoggedRequest {
     private String request;
     int requestCode;
 
+    public LoggedRequest(String host, String request, int requestCode){
+        this.host = host;
+        this.request = request;
+        this.requestCode = requestCode;
+    }
+
     /*Getters and Setters*/
 
-    public String getHost() {
-        return host;
-    }
+    public String getHost() { return host; }
 
     public void setHost(String host) {
         this.host = host;

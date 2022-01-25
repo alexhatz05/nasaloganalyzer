@@ -24,4 +24,4 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 
 **Assumptions**
 
-[]
+ 1) It is assumed that the timestamp will always be in proper format and that the malformed entries are not caused due to a malformed timestamp.
