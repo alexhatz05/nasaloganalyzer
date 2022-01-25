@@ -48,7 +48,7 @@ public class NasaLogFileParser {
         nasaLogMetricsSingleton.increaseTotalRequests();
 
         if(loggedRequest.isSuccessful())
-            nasaLogMetricsSingleton.increaseUnsuccessfulRequests();
+            nasaLogMetricsSingleton.increaseSuccessfulRequests();
         else
             nasaLogMetricsSingleton.increaseUnsuccessfulRequests();
     }
