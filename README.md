@@ -10,6 +10,10 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 7. For each of the top 10 hosts, show the top 5 pages requested and the number of requests for each page
 8. The log file contains malformed entries; for each malformed line, display an error message and the line number.
 
+**Requirements**
+
+ - Java 8
+
 **How to use**
 
 []
