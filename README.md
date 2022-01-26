@@ -13,6 +13,7 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 **Requirements**
 
  - Java 8 or newer
+ - Maven 3.5.3
 
 **How to use**
 
@@ -20,9 +21,9 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 
 **Dependencies**
 
-[]
+ - maven-jar-plugin v3.2.2
 
 **Assumptions**
 
- 1) It is assumed that the log file is locally stored and its path is specified by the user during the program execution.
+ 1) It is assumed that the log file is locally stored (uncompressed) and its path is specified by the user during the program execution.
  2) It is also assumed that the timestamp will always be in proper format and that the malformed entries are not caused due to a malformed timestamp.
