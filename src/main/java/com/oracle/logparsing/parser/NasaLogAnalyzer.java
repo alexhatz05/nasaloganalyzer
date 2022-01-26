@@ -11,7 +11,7 @@ public class NasaLogAnalyzer {
         try (Scanner scanner = NasaLogFileParser.loadLogFile()) {
             /*Parse the file and compute the metrics*/
             NasaLogFileParser fileParser = new NasaLogFileParser();
-            fileParser.parseLogFile(NasaLogFileParser.loadLogFile());
+            fileParser.parseLogFile(scanner);
 
             /*Create the final report*/
             MetricsReport metricsReport = new MetricsReport();
