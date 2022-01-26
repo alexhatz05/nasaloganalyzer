@@ -12,11 +12,8 @@ public class NasaLogAnalyzer {
     public static void main(String[] args) {
         NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
-        if (args.length == 0) {
-            System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide the log file path!" +
-                    ConsoleColors.RESET_COLOUR);
-            return;
-        }
+        /* Validate provided arguments*/
+        validateInput(args);
 
         String filepath = args[0];
 
@@ -32,6 +29,24 @@ public class NasaLogAnalyzer {
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void validateInput(String[] args) {
+        if (args.length == 0) {
+            System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide the log file path!" + ConsoleColors.RESET_COLOUR);
+            System.exit(0);
+        }
+        else if (args.length == 2) {
+            if (!(args[1]).equals("topRequested") || args[1].equals("successPercent") || args[1].equals("unsuccssfulPercent")
+                    || args[1].equals("topUnsuccessful") || args[1].equals("topHosts")) {
+                System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide the correct option!" + ConsoleColors.RESET_COLOUR);
+                System.exit(0);
+            }
+        }
+        else if (args.length > 2) {
+            System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide correct number of arguments!" + ConsoleColors.RESET_COLOUR);
+            System.exit(0);
         }
     }
 }
