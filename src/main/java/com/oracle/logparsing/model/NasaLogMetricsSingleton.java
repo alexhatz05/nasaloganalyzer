@@ -82,4 +82,9 @@ public class NasaLogMetricsSingleton {
         unsuccessfulReqPages.put(url, unsuccessfulReqPages.containsKey(url) ? unsuccessfulReqPages.get(url) + 1 : 1);
     }
 
+    public double computePercentage(boolean successful) {
+        int noOfRequests = (successful) ? this.successfulRequests : this.unsuccessfulRequests;
+        return (((double) noOfRequests) / ((double) this.totalRequests)) * 100;
+    }
+
 }
