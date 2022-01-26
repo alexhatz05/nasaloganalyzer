@@ -15,8 +15,8 @@ public class NasaLogFileParser {
     private int lineCounter = 0;
     private NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
-    public static Scanner loadLogFile() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("/home/sword/Desktop/access_log_Aug95"));
+    public static Scanner loadLogFile(String filepath) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(filepath));
         return scanner;
     }
 
