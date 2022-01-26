@@ -5,11 +5,20 @@ import java.util.HashMap;
 public class NasaLogMetricsSingleton {
 
     private static NasaLogMetricsSingleton nasaLogMetrics = new NasaLogMetricsSingleton();
+
     private HashMap<String, Integer> requestedPages = new HashMap<>();
     private HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
     private int successfulRequests = 0;
+
     private int unsuccessfulRequests = 0;
     private int totalRequests = 0;
+
+    private boolean flagOptionEnabled = false;
+    private boolean topRequestedFlag = false;
+    private boolean successPercentFlag = false;
+    private boolean unsuccessfulPercentFlag = false;
+    private boolean topUnsuccessfulFlag = false;
+    private boolean topHostsFlag = false;
 
     private NasaLogMetricsSingleton() {
     }
@@ -58,6 +67,54 @@ public class NasaLogMetricsSingleton {
 
     public void setTotalRequests(int totalRequests) {
         this.totalRequests = totalRequests;
+    }
+
+    public boolean isFlagOptionEnabled() {
+        return flagOptionEnabled;
+    }
+
+    public void setFlagOptionEnabled(boolean flagOptionEnabled) {
+        this.flagOptionEnabled = flagOptionEnabled;
+    }
+
+    public boolean isTopRequestedFlag() {
+        return topRequestedFlag;
+    }
+
+    public void setTopRequestedFlag(boolean topRequestedFlag) {
+        this.topRequestedFlag = topRequestedFlag;
+    }
+
+    public boolean isSuccessPercentFlag() {
+        return successPercentFlag;
+    }
+
+    public void setSuccessPercentFlag(boolean successPercentFlag) {
+        this.successPercentFlag = successPercentFlag;
+    }
+
+    public boolean isUnsuccessfulPercentFlag() {
+        return unsuccessfulPercentFlag;
+    }
+
+    public void setUnsuccessfulPercentFlag(boolean unsuccessfulPercentFlag) {
+        this.unsuccessfulPercentFlag = unsuccessfulPercentFlag;
+    }
+
+    public boolean isTopUnsuccessfulFlag() {
+        return topUnsuccessfulFlag;
+    }
+
+    public void setTopUnsuccessfulFlag(boolean topUnsuccessfulFlag) {
+        this.topUnsuccessfulFlag = topUnsuccessfulFlag;
+    }
+
+    public boolean isTopHostsFlag() {
+        return topHostsFlag;
+    }
+
+    public void setTopHostsFlag(boolean topHostsFlag) {
+        this.topHostsFlag = topHostsFlag;
     }
 
     /*Util*/

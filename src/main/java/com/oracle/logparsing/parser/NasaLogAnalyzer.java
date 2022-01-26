@@ -10,14 +10,14 @@ import java.util.Scanner;
 public class NasaLogAnalyzer {
 
     public static void main(String[] args) {
-        NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
-
         /* Validate provided arguments*/
         validateInput(args);
 
-        String filepath = args[0];
+        /* If flag is provided */
+        if(args.length == 2)
+            updateFlagOptionParams(args[1]);
 
-        try (Scanner scanner = NasaLogFileParser.loadLogFile(filepath)) {
+        try (Scanner scanner = NasaLogFileParser.loadLogFile(args[0])) {
             /*Parse the file and compute the metrics*/
             NasaLogFileParser fileParser = new NasaLogFileParser();
             fileParser.parseLogFile(scanner);
@@ -29,6 +29,31 @@ public class NasaLogAnalyzer {
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void updateFlagOptionParams(String option){
+        NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
+        nasaLogMetricsSingleton.setFlagOptionEnabled(true);
+
+        switch(option) {
+            case "topRequested":
+                nasaLogMetricsSingleton.setTopRequestedFlag(true);
+                break;
+            case "successPercent":
+                nasaLogMetricsSingleton.setSuccessPercentFlag(true);
+                break;
+            case "unsuccessfulPercent":
+                nasaLogMetricsSingleton.setUnsuccessfulPercentFlag(true);
+                break;
+            case "topUnsuccessful":
+                nasaLogMetricsSingleton.setTopUnsuccessfulFlag(true);
+                break;
+            case "topHosts":
+                nasaLogMetricsSingleton.setTopHostsFlag(true);
+                break;
+            default:
+                System.out.println("Unexpected value of parameter");
         }
     }
 
