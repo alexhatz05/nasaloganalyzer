@@ -28,7 +28,7 @@ public class NasaLogFileParser {
         for (String line : lines) {
             lineCounter++;
 
-            Pattern p = Pattern.compile(getLogFileLinePattern());
+            Pattern p = Pattern.compile(getLogFileLineRegex());
             Matcher matcher = p.matcher(line);
 
             if (!matcher.matches()) {
@@ -46,7 +46,7 @@ public class NasaLogFileParser {
         }
     }
 
-    public static String getLogFileLinePattern(){
+    public static String getLogFileLineRegex(){
         return "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
     }
 
