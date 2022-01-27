@@ -1,6 +1,9 @@
 package com.oracle.logparsing.model;
 
+import com.oracle.logparsing.util.HashMapValueComparator;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class NasaLogMetricsSingleton {
 
@@ -142,6 +145,13 @@ public class NasaLogMetricsSingleton {
     public double computePercentage(boolean successful) {
         int noOfRequests = (successful) ? this.successfulRequests : this.unsuccessfulRequests;
         return (((double) noOfRequests) / ((double) this.totalRequests)) * 100;
+    }
+
+    public void sortRequestedPagesHashMap() {
+        requestedPages.entrySet().
+                stream().
+                sorted(Map.Entry.<String, Integer>comparingByValue().
+                reversed()).limit(10).forEach(System.out::println);
     }
 
 }

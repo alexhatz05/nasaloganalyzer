@@ -17,16 +17,38 @@ public class MetricsReport {
                     metricsSingleton.computePercentage(true));
 
         /* Percentage of unsuccessful requests*/
-        if (!isFlagProvided || isFlagProvided & metricsSingleton.isUnsuccessfulPercentFlag())
+        if (!isFlagProvided || isFlagProvided && metricsSingleton.isUnsuccessfulPercentFlag())
             System.out.printf(UNSUCCESSFUL_REQ_PER_MESSAGE + "%.4f%%\n",
                     metricsSingleton.computePercentage(false));
+
+        /* Top requested pages */
+        if (!isFlagProvided || isFlagProvided && metricsSingleton.isTopRequestedFlag()) {
+            printLineSeparator();
+            printTopRequestedTitle();
+            metricsSingleton.sortRequestedPagesHashMap();
+            printLineSeparator();
+        }
     }
 
     public void printReportsTitle() {
-        System.out.println("\n" + ConsoleColors.CYAN_BOLD +
+        System.out.println("\n" +
+                        ConsoleColors.CYAN_BOLD +
                         "********************" + "\n" +
                         "*** Final Report ***" + "\n" +
                         "********************"
                         + ConsoleColors.RESET_COLOUR);
+    }
+
+    public void printLineSeparator() {
+        System.out.println("\n" +
+                ConsoleColors.YELLOW_COLOUR +
+                "********************************************" + "\n" +
+                ConsoleColors.RESET_COLOUR);
+    }
+
+    public void printTopRequestedTitle() {
+        System.out.println(ConsoleColors.YELLOW_BOLD +
+                "Top 10 Requested Pages" + "\n" +
+                ConsoleColors.RESET_COLOUR);
     }
 }
