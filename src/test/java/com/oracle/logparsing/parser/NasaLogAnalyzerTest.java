@@ -58,4 +58,26 @@ class NasaLogAnalyzerTest {
                         replace(ConsoleColors.RESET_COLOUR, "").
                         trim());
     }
+
+    @Test
+    void validateInput_whenCorrectFlagProvided_thenValidateInput() {
+        String[] args = new String[2];
+        args[0] = "/home/rheluser/Desktop/dummylogfile";
+
+        args[1] = "topRequested";
+        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+
+        args[1] = "successPercent";
+        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+
+        args[1] = "unsuccessfulPercent";
+        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+
+        args[1] = "topUnsuccessful";
+        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+
+        args[1] = "topHosts";
+        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+
+    }
 }
