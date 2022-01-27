@@ -29,4 +29,19 @@ class NasaLogAnalyzerTest {
                         replace(ConsoleColors.RESET_COLOUR, "").
                         trim());
     }
+
+    @Test
+    void validateInput_whenWrongNumberOfArgumentsProvided_thenReturnError() {
+        String[] args = new String[3];
+        args[0] = "/home/rheluser/Desktop/dummylogfile";
+        args[1] = "topRequested";
+        args[2] = "topHosts";
+
+        Assertions.assertEquals(false, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertEquals("Please, provide correct number of arguments!",
+                outputStreamCaptor.toString().
+                        replace(ConsoleColors.YELLOW_COLOUR, "").
+                        replace(ConsoleColors.RESET_COLOUR, "").
+                        trim());
+    }
 }
