@@ -17,12 +17,12 @@ public class MetricsReport {
                     metricsSingleton.computePercentage(true));
 
         /* Percentage of unsuccessful requests*/
-        if (!isFlagProvided || isFlagProvided && metricsSingleton.isUnsuccessfulPercentFlag())
+        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isUnsuccessfulPercentFlag()))
             System.out.printf(UNSUCCESSFUL_REQ_PER_MESSAGE + "%.4f%%\n",
                     metricsSingleton.computePercentage(false));
 
         /* Top requested pages */
-        if (!isFlagProvided || isFlagProvided && metricsSingleton.isTopRequestedFlag()) {
+        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isTopRequestedFlag())) {
             printLineSeparator();
             printTopRequestedTitle();
             metricsSingleton.sortRequestedPagesHashMap();
