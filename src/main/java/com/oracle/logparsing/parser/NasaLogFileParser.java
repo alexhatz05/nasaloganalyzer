@@ -27,9 +27,8 @@ public class NasaLogFileParser {
         List<String> lines = Files.readAllLines(filePath, StandardCharsets.ISO_8859_1);
         for (String line : lines) {
             lineCounter++;
-            String loggedRequestPattern = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
 
-            Pattern p = Pattern.compile(loggedRequestPattern);
+            Pattern p = Pattern.compile(getLogFileLinePattern());
             Matcher matcher = p.matcher(line);
 
             if (!matcher.matches()) {
@@ -45,6 +44,10 @@ public class NasaLogFileParser {
             LoggedRequest loggedRequest = new LoggedRequest(host, request, responseCode);
             updateMetrics(loggedRequest);
         }
+    }
+
+    public static String getLogFileLinePattern(){
+        return "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
     }
 
     public static boolean isValidFile(Path filepath){
