@@ -26,6 +26,11 @@ Nasaloganalyzer produces a plain text report containing the following informatio
  - **topUnsuccessful**:     _This is the **optional** flag that has to be used for informing the parser to report only the top 10 unsuccessful page requests;_ 
  - **topHosts**:            _This is the **optional** flag that has to be used for informing the parser to report only the 10 hosts making the most request, with their IP address and number of requests made._ 
 
+**Example usage**
+
+  1. `java -jar NasaLogAnalyzer-1.0.jar "/home/rheluser/Desktop/access_log_Aug95" `
+  2. `java -jar NasaLogAnalyzer-1.0.jar "/home/rheluser/Desktop/access_log_Aug95" successPercent`
+
 # **Dependencies**
 
  - maven-jar-plugin v3.2.2
