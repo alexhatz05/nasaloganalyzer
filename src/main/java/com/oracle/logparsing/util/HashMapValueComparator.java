@@ -3,9 +3,9 @@ package com.oracle.logparsing.util;
 import java.util.Comparator;
 import java.util.Map;
 
-public class HashMapValueComparator implements Comparator {
+public class HashMapValueComparator implements Comparator<Map.Entry<String, Integer>> {
     @Override
-    public int compare(Object o1, Object o2) {
-        return ((Comparable) ((Map.Entry) (o1)).getValue()).compareTo(((Map.Entry) (o2)).getValue());
+    public int compare(Map.Entry<String, Integer> e1, Map.Entry<String, Integer> e2) {
+        return e1.getValue().compareTo(e2.getValue());
     }
 }
