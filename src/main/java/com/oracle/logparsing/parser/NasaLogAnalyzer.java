@@ -74,7 +74,7 @@ public class NasaLogAnalyzer {
         else if (args.length == 2) {
             if (!(args[1].equals("topRequested") || args[1].equals("successPercent") || args[1].equals("unsuccessfulPercent")
                     || args[1].equals("topUnsuccessful") || args[1].equals("topHosts"))) {
-                System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide the correct option!" + ConsoleColors.RESET_COLOUR);
+                System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide a correct option!" + ConsoleColors.RESET_COLOUR);
                 errorFree = false;
             }
         }

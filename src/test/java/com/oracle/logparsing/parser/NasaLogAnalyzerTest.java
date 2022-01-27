@@ -44,4 +44,18 @@ class NasaLogAnalyzerTest {
                         replace(ConsoleColors.RESET_COLOUR, "").
                         trim());
     }
+
+    @Test
+    void validateInput_whenWrongFlagProvided_thenReturnError() {
+        String[] args = new String[2];
+        args[0] = "/home/rheluser/Desktop/dummylogfile";
+        args[1] = "topDummy";
+
+        Assertions.assertEquals(false, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertEquals("Please, provide a correct option!",
+                outputStreamCaptor.toString().
+                        replace(ConsoleColors.YELLOW_COLOUR, "").
+                        replace(ConsoleColors.RESET_COLOUR, "").
+                        trim());
+    }
 }
