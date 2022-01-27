@@ -34,6 +34,7 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 # **Dependencies**
 
  - maven-jar-plugin v3.2.2
+ - maven-surefire-plugin v2.22.0
  - junit v5.8.2
 
 # **Assumptions**
