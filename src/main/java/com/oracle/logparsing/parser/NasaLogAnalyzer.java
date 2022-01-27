@@ -11,7 +11,8 @@ public class NasaLogAnalyzer {
 
     public static void main(String[] args) {
         /* Validate provided arguments*/
-        validateInput(args);
+        if (!validateInput(args))
+            System.exit(0);
 
         /* If flag is provided */
         if(args.length == 2)
@@ -57,21 +58,25 @@ public class NasaLogAnalyzer {
         }
     }
 
-    public static void validateInput(String[] args) {
+    public static boolean validateInput(String[] args) {
+        boolean errorFree = true;
+
         if (args.length == 0) {
             System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide the log file path!" + ConsoleColors.RESET_COLOUR);
-            System.exit(0);
+            errorFree = false;
         }
         else if (args.length == 2) {
             if (!(args[1].equals("topRequested") || args[1].equals("successPercent") || args[1].equals("unsuccessfulPercent")
                     || args[1].equals("topUnsuccessful") || args[1].equals("topHosts"))) {
                 System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide the correct option!" + ConsoleColors.RESET_COLOUR);
-                System.exit(0);
+                errorFree = false;
             }
         }
         else if (args.length > 2) {
             System.out.println(ConsoleColors.YELLOW_COLOUR + "Please, provide correct number of arguments!" + ConsoleColors.RESET_COLOUR);
-            System.exit(0);
+            errorFree = false;
         }
+
+        return errorFree;
     }
 }

@@ -1,10 +1,32 @@
 package com.oracle.logparsing.parser;
 
-import static org.junit.jupiter.api.Assertions.*;
+import com.oracle.logparsing.util.ConsoleColors;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
 class NasaLogAnalyzerTest {
 
-    @org.junit.jupiter.api.Test
-    void validateInput() {
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+    @BeforeEach
+    public void setUp() {
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+
+    @Test
+    void validateInput_whenFilepathNotProvided_thenReturnError() {
+        String[] args = new String[0];
+
+        Assertions.assertEquals(false, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertEquals("Please, provide the log file path!",
+                outputStreamCaptor.toString().
+                        replace(ConsoleColors.YELLOW_COLOUR, "").
+                        replace(ConsoleColors.RESET_COLOUR, "").
+                        trim());
     }
 }
