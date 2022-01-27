@@ -1,5 +1,6 @@
 package com.oracle.logparsing.parser;
 
+import com.oracle.logparsing.model.NasaLogMetricsSingleton;
 import com.oracle.logparsing.util.ConsoleColors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,6 +79,25 @@ class NasaLogAnalyzerTest {
 
         args[1] = "topHosts";
         Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+    }
 
+    @Test
+    void updateFlagOptionParamsTet() {
+        NasaLogMetricsSingleton metricsSingleton = NasaLogMetricsSingleton.getInstance();
+
+        Assertions.assertEquals(false, metricsSingleton.isFlagOptionEnabled());
+        Assertions.assertEquals(false, metricsSingleton.isTopRequestedFlag());
+        Assertions.assertEquals(false, metricsSingleton.isSuccessPercentFlag());
+        Assertions.assertEquals(false, metricsSingleton.isUnsuccessfulPercentFlag());
+        Assertions.assertEquals(false, metricsSingleton.isTopUnsuccessfulFlag());
+        Assertions.assertEquals(false, metricsSingleton.isTopHostsFlag());
+
+        NasaLogAnalyzer.updateFlagOptionParams("topRequested");
+        Assertions.assertEquals(true, metricsSingleton.isFlagOptionEnabled());
+        Assertions.assertEquals(true, metricsSingleton.isTopRequestedFlag());
+        Assertions.assertEquals(false, metricsSingleton.isSuccessPercentFlag());
+        Assertions.assertEquals(false, metricsSingleton.isUnsuccessfulPercentFlag());
+        Assertions.assertEquals(false, metricsSingleton.isTopUnsuccessfulFlag());
+        Assertions.assertEquals(false, metricsSingleton.isTopHostsFlag());
     }
 }
