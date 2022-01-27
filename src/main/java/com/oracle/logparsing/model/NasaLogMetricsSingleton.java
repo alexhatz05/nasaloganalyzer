@@ -1,7 +1,5 @@
 package com.oracle.logparsing.model;
 
-import com.oracle.logparsing.util.HashMapValueComparator;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -151,7 +149,9 @@ public class NasaLogMetricsSingleton {
         requestedPages.entrySet().
                 stream().
                 sorted(Map.Entry.<String, Integer>comparingByValue().
-                reversed()).limit(10).forEach(System.out::println);
+                reversed()).
+                limit(10).
+                forEachOrdered(e -> System.out.println("[URL] "+e.getKey()+" / [No of Requests] "+e.getValue()));
     }
 
 }

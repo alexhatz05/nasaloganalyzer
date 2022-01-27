@@ -40,15 +40,15 @@ public class MetricsReport {
     }
 
     public void printLineSeparator() {
-        System.out.println("\n" +
-                ConsoleColors.YELLOW_COLOUR +
-                "********************************************" + "\n" +
+        System.out.println(ConsoleColors.YELLOW_COLOUR +
+                "**********************************************************************" +
                 ConsoleColors.RESET_COLOUR);
     }
 
     public void printTopRequestedTitle() {
         System.out.println(ConsoleColors.YELLOW_BOLD +
-                "Top 10 Requested Pages" + "\n" +
+                "Top 10 Requested Pages************************************************" +
                 ConsoleColors.RESET_COLOUR);
+        printLineSeparator();
     }
 }
