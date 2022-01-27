@@ -4,8 +4,8 @@ import com.oracle.logparsing.model.MetricsReport;
 import com.oracle.logparsing.model.NasaLogMetricsSingleton;
 import com.oracle.logparsing.util.ConsoleColors;
 
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class NasaLogAnalyzer {
 
@@ -15,29 +15,35 @@ public class NasaLogAnalyzer {
             System.exit(0);
 
         /* If flag is provided */
-        if(args.length == 2)
+        if (args.length == 2)
             updateFlagOptionParams(args[1]);
 
-        try (Scanner scanner = NasaLogFileParser.loadLogFile(args[0])) {
-            /*Parse the file and compute the metrics*/
-            NasaLogFileParser fileParser = new NasaLogFileParser();
-            fileParser.parseLogFile(scanner);
-
-            /*Create the final report*/
-            MetricsReport metricsReport = new MetricsReport();
-            metricsReport.printReportsTitle();
-            metricsReport.produceMetricsReport();
+        Path filePath = NasaLogFileParser.loadLogFile(args[0]);
+        if (!NasaLogFileParser.isValidFile(filePath)){
+            System.out.println("Wrong log file path provided!");
+            System.exit(0);
         }
-        catch (FileNotFoundException e) {
+
+        /*Parse the file and compute the metrics*/
+        NasaLogFileParser fileParser = new NasaLogFileParser();
+        try {
+            fileParser.parseLogFile(filePath);
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
+
+        /*Create the final report*/
+        MetricsReport metricsReport = new MetricsReport();
+        metricsReport.printReportsTitle();
+        metricsReport.produceMetricsReport();
     }
 
-    public static void updateFlagOptionParams(String option){
+    public static void updateFlagOptionParams(String option) {
         NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
         nasaLogMetricsSingleton.setFlagOptionEnabled(true);
 
-        switch(option) {
+        switch (option) {
             case "topRequested":
                 nasaLogMetricsSingleton.setTopRequestedFlag(true);
                 break;

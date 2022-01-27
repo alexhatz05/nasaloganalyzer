@@ -4,9 +4,12 @@ import com.oracle.logparsing.model.LoggedRequest;
 import com.oracle.logparsing.model.NasaLogMetricsSingleton;
 import com.oracle.logparsing.util.ConsoleColors;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,17 +18,17 @@ public class NasaLogFileParser {
     private int lineCounter = 0;
     private NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
-    public static Scanner loadLogFile(String filepath) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(filepath));
-        return scanner;
+    public static Path loadLogFile(String filepath) {
+        Path filePath = Paths.get(filepath);
+        return filePath;
     }
 
-    public void parseLogFile(Scanner scanner) {
-        while (scanner.hasNextLine()) {
+    public void parseLogFile(Path filePath) throws IOException {
+        List<String> lines = Files.readAllLines(filePath, StandardCharsets.ISO_8859_1);
+        for (String line : lines) {
             lineCounter++;
             String loggedRequestPattern = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
 
-            String line = scanner.nextLine();
             Pattern p = Pattern.compile(loggedRequestPattern);
             Matcher matcher = p.matcher(line);
 
@@ -42,6 +45,10 @@ public class NasaLogFileParser {
             LoggedRequest loggedRequest = new LoggedRequest(host, request, responseCode);
             updateMetrics(loggedRequest);
         }
+    }
+
+    public static boolean isValidFile(Path filepath){
+        return Files.exists(filepath) ? true: false;
     }
 
     public void updateMetrics(LoggedRequest loggedRequest) {
