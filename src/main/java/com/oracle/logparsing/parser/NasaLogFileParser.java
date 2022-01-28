@@ -63,5 +63,8 @@ public class NasaLogFileParser {
             nasaLogMetricsSingleton.increaseUnsuccessfulRequests();
 
         nasaLogMetricsSingleton.addEntryInRequestedPages(loggedRequest.getRequestURL());
+
+        if(!loggedRequest.isSuccessful())
+            nasaLogMetricsSingleton.addEntryInUnsuccessfulPages(loggedRequest.getRequestURL());
     }
 }

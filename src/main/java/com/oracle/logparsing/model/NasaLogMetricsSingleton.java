@@ -154,4 +154,12 @@ public class NasaLogMetricsSingleton {
                 forEachOrdered(e -> System.out.println("[URL] "+e.getKey()+" / [No of Requests] "+e.getValue()));
     }
 
+    public void sortUnsuccessfulPagesHashMap() {
+        unsuccessfulReqPages.entrySet().
+                stream().
+                sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
+                limit(10).
+                forEachOrdered(e -> System.out.println("[URL] " + e.getKey()));
+    }
+
 }

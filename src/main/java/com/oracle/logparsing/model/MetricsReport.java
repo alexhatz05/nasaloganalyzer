@@ -28,6 +28,14 @@ public class MetricsReport {
             metricsSingleton.sortRequestedPagesHashMap();
             printLineSeparator();
         }
+
+        /* Top Unsuccessful */
+        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isTopUnsuccessfulFlag())) {
+            printLineSeparator();
+            printTopUnsuccessfulTitle();
+            metricsSingleton.sortUnsuccessfulPagesHashMap();
+            printLineSeparator();
+        }
     }
 
     public void printReportsTitle() {
@@ -48,6 +56,13 @@ public class MetricsReport {
     public void printTopRequestedTitle() {
         System.out.println(ConsoleColors.YELLOW_BOLD +
                 "Top 10 Requested Pages************************************************" +
+                ConsoleColors.RESET_COLOUR);
+        printLineSeparator();
+    }
+
+    public void printTopUnsuccessfulTitle() {
+        System.out.println(ConsoleColors.YELLOW_BOLD +
+                "Top 10 Unsuccessful Page Requests**************************************" +
                 ConsoleColors.RESET_COLOUR);
         printLineSeparator();
     }
