@@ -62,7 +62,7 @@ public class MetricsReport {
 
     public void printTopUnsuccessfulTitle() {
         System.out.println(ConsoleColors.YELLOW_BOLD +
-                "Top 10 Unsuccessful Page Requests**************************************" +
+                "Top 10 Unsuccessful Page Requests*************************************" +
                 ConsoleColors.RESET_COLOUR);
         printLineSeparator();
     }
