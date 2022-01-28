@@ -17,6 +17,11 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 
 # **How to use**
 
+**Build**
+
+In order to build the application an **_mvn clean install_** is enough.
+The executable file can be found under the target folder after the build.
+
 **Parameters**
 
  - **{log file path}**:     _This parameter is **mandatory** and provides the path to the (uncompressed) log file in the local system;_
