@@ -41,3 +41,7 @@ Nasaloganalyzer produces a plain text report containing the following informatio
 
  1) It is assumed that the log file is locally stored (uncompressed) and its path is specified by the user during the program execution.
  2) It is also assumed that the timestamp will always be in proper format and that the malformed entries are not caused due to a malformed timestamp.
+ 3) Log lines of the following format are not considered as malformed but as a normal case of a not found request:
+
+    `    www-b2.proxy.aol.com - - [01/Aug/1995:01:48:29 -0400] "GET /pub/winvn/readme.txt HTTP/1.0" 404 -` 
+ 4) For features [5] & [7] both successful and unsuccessful requests have been considered in the counting. 
