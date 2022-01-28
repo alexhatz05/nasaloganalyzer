@@ -7,10 +7,11 @@ public class NasaLogMetricsSingleton {
 
     private static NasaLogMetricsSingleton nasaLogMetrics = new NasaLogMetricsSingleton();
 
+    private HashMap<String, Integer> hosts = new HashMap<>();
     private HashMap<String, Integer> requestedPages = new HashMap<>();
     private HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
-    private int successfulRequests = 0;
 
+    private int successfulRequests = 0;
     private int unsuccessfulRequests = 0;
     private int totalRequests = 0;
 
@@ -118,6 +119,14 @@ public class NasaLogMetricsSingleton {
         this.topHostsFlag = topHostsFlag;
     }
 
+    public HashMap<String, Integer> getHosts() {
+        return hosts;
+    }
+
+    public void setHosts(HashMap<String, Integer> hosts) {
+        this.hosts = hosts;
+    }
+
     /*Util*/
 
     public void increaseTotalRequests() {
@@ -140,6 +149,10 @@ public class NasaLogMetricsSingleton {
         unsuccessfulReqPages.put(url, unsuccessfulReqPages.containsKey(url) ? unsuccessfulReqPages.get(url) + 1 : 1);
     }
 
+    public void addEntryInHosts(String hostname) {
+        hosts.put(hostname, hosts.containsKey(hostname) ? hosts.get(hostname) + 1 : 1);
+    }
+
     public double computePercentage(boolean successful) {
         int noOfRequests = (successful) ? this.successfulRequests : this.unsuccessfulRequests;
         return (((double) noOfRequests) / ((double) this.totalRequests)) * 100;
@@ -147,19 +160,28 @@ public class NasaLogMetricsSingleton {
 
     public void sortRequestedPagesHashMap() {
         requestedPages.entrySet().
-                stream().
-                sorted(Map.Entry.<String, Integer>comparingByValue().
-                reversed()).
-                limit(10).
-                forEachOrdered(e -> System.out.println("[URL] "+e.getKey()+" / [No of Requests] "+e.getValue()));
+                        stream().
+                        sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
+                        limit(10)
+                        .forEachOrdered(e ->
+                        System.out.println("[URL] " + e.getKey() + " / [No of Requests] " + e.getValue()));
     }
 
     public void sortUnsuccessfulPagesHashMap() {
         unsuccessfulReqPages.entrySet().
-                stream().
-                sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
-                limit(10).
-                forEachOrdered(e -> System.out.println("[URL] " + e.getKey()));
+                        stream().
+                        sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
+                        limit(10)
+                        .forEachOrdered(e -> System.out.println("[URL] " + e.getKey()));
+    }
+
+    public void sortHostsHashMap() {
+        hosts.entrySet().
+                        stream().
+                        sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
+                        limit(10)
+                        .forEachOrdered(e ->
+                        System.out.println("[HOSTNAME] " + e.getKey() + " / [No of Requests] " +e.getValue()));
     }
 
 }

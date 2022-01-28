@@ -36,6 +36,14 @@ public class MetricsReport {
             metricsSingleton.sortUnsuccessfulPagesHashMap();
             printLineSeparator();
         }
+
+        /* Top Hosts */
+        if(!isFlagProvided || (isFlagProvided && metricsSingleton.isTopHostsFlag())) {
+            printLineSeparator();
+            printTopHostsTitle();
+            metricsSingleton.sortHostsHashMap();
+            printLineSeparator();
+        }
     }
 
     public void printReportsTitle() {
@@ -63,6 +71,13 @@ public class MetricsReport {
     public void printTopUnsuccessfulTitle() {
         System.out.println(ConsoleColors.YELLOW_BOLD +
                 "Top 10 Unsuccessful Page Requests*************************************" +
+                ConsoleColors.RESET_COLOUR);
+        printLineSeparator();
+    }
+
+    public void printTopHostsTitle() {
+        System.out.println(ConsoleColors.YELLOW_BOLD +
+                "Top 10 Hosts**********************************************************" +
                 ConsoleColors.RESET_COLOUR);
         printLineSeparator();
     }
