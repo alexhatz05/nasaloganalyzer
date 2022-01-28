@@ -2,7 +2,7 @@ package com.oracle.logparsing.model;
 
 public class LoggedRequest {
 
-    int requestCode;
+    private int requestCode;
     private String host;
     private String timestamp;
     private String request;

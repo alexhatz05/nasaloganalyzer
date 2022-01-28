@@ -76,5 +76,7 @@ public class NasaLogFileParser {
 
         if (!loggedRequest.isSuccessful())
             nasaLogMetricsSingleton.addEntryInUnsuccessfulPages(loggedRequest.getRequestURL());
+
+        nasaLogMetricsSingleton.addEntryInRequestObjs(loggedRequest);
     }
 }

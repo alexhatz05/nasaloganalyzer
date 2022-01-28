@@ -25,7 +25,7 @@ public class MetricsReport {
         if (!isFlagProvided || (isFlagProvided && metricsSingleton.isTopRequestedFlag())) {
             printLineSeparator();
             printTopRequestedTitle();
-            metricsSingleton.sortRequestedPagesHashMap();
+            metricsSingleton.findTopRequestedPagesFromHashMap();
             printLineSeparator();
         }
 
@@ -33,7 +33,7 @@ public class MetricsReport {
         if (!isFlagProvided || (isFlagProvided && metricsSingleton.isTopUnsuccessfulFlag())) {
             printLineSeparator();
             printTopUnsuccessfulTitle();
-            metricsSingleton.sortUnsuccessfulPagesHashMap();
+            metricsSingleton.findTopUnsuccessfulPagesFromHashMap();
             printLineSeparator();
         }
 
@@ -41,7 +41,7 @@ public class MetricsReport {
         if(!isFlagProvided || (isFlagProvided && metricsSingleton.isTopHostsFlag())) {
             printLineSeparator();
             printTopHostsTitle();
-            metricsSingleton.sortHostsHashMap();
+            metricsSingleton.findTopTenHosts();
             printLineSeparator();
         }
     }

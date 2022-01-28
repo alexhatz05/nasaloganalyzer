@@ -1,7 +1,10 @@
 package com.oracle.logparsing.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class NasaLogMetricsSingleton {
 
@@ -10,6 +13,8 @@ public class NasaLogMetricsSingleton {
     private HashMap<String, Integer> hosts = new HashMap<>();
     private HashMap<String, Integer> requestedPages = new HashMap<>();
     private HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
+
+    private List<LoggedRequest> requestObjs = new ArrayList<>();
 
     private int successfulRequests = 0;
     private int unsuccessfulRequests = 0;
@@ -61,6 +66,14 @@ public class NasaLogMetricsSingleton {
 
     public void setUnsuccessfulReqPages(HashMap<String, Integer> unsuccessfulReqPages) {
         this.unsuccessfulReqPages = unsuccessfulReqPages;
+    }
+
+    public List<LoggedRequest> getRequestObjs() {
+        return requestObjs;
+    }
+
+    public void setRequestObjs(List<LoggedRequest> requestObjs) {
+        this.requestObjs = requestObjs;
     }
 
     public int getTotalRequests() {
@@ -153,12 +166,16 @@ public class NasaLogMetricsSingleton {
         hosts.put(hostname, hosts.containsKey(hostname) ? hosts.get(hostname) + 1 : 1);
     }
 
+    public void addEntryInRequestObjs(LoggedRequest loggedRequest) {
+        requestObjs.add(loggedRequest);
+    }
+
     public double computePercentage(boolean successful) {
         int noOfRequests = (successful) ? this.successfulRequests : this.unsuccessfulRequests;
         return (((double) noOfRequests) / ((double) this.totalRequests)) * 100;
     }
 
-    public void sortRequestedPagesHashMap() {
+    public void findTopRequestedPagesFromHashMap() {
         requestedPages.entrySet().
                         stream().
                         sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
@@ -167,7 +184,7 @@ public class NasaLogMetricsSingleton {
                         System.out.println("[URL] " + e.getKey() + " / [No of Requests] " + e.getValue()));
     }
 
-    public void sortUnsuccessfulPagesHashMap() {
+    public void findTopUnsuccessfulPagesFromHashMap() {
         unsuccessfulReqPages.entrySet().
                         stream().
                         sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
@@ -175,13 +192,34 @@ public class NasaLogMetricsSingleton {
                         .forEachOrdered(e -> System.out.println("[URL] " + e.getKey()));
     }
 
-    public void sortHostsHashMap() {
-        hosts.entrySet().
-                        stream().
-                        sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
-                        limit(10)
-                        .forEachOrdered(e ->
-                        System.out.println("[HOSTNAME] " + e.getKey() + " / [No of Requests] " +e.getValue()));
+    private List<Host> findTopTenHostsList() {
+        List<Host> topHostsWithInfo = new ArrayList<>();
+
+        List<String> topHosts = hosts.entrySet().
+                stream().
+                sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
+                limit(10).
+                map(Map.Entry::getKey).
+                collect(Collectors.toList());
+
+        for(String topHost: topHosts){
+            topHostsWithInfo.add(new Host(topHost));
+        }
+
+        return topHostsWithInfo;
+    }
+
+    public void findTopTenHosts() {
+        List<Host> topTenHosts = findTopTenHostsList();
+
+        for(Host host: topTenHosts) {
+            host.getRequests().entrySet().
+                    stream().
+                    sorted(Map.Entry.<String, Long>comparingByValue().reversed()).
+                    limit(5).
+                    forEachOrdered(e ->
+                    System.out.println("[URL] " + e.getKey() + " / [No of Requests] " + e.getValue()) );
+        }
     }
 
 }
