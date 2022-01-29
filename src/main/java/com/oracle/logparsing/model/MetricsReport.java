@@ -12,17 +12,17 @@ public class MetricsReport {
         boolean isFlagProvided = metricsSingleton.isFlagOptionEnabled();
 
         /* Percentage of successful requests*/
-        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isSuccessPercentFlag()))
+        if (!isFlagProvided || metricsSingleton.isSuccessPercentFlag())
             System.out.printf(SUCCESSFUL_REQ_PER_MESSAGE + "%.4f%%\n",
                     metricsSingleton.computePercentage(true));
 
         /* Percentage of unsuccessful requests*/
-        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isUnsuccessfulPercentFlag()))
+        if (!isFlagProvided || metricsSingleton.isUnsuccessfulPercentFlag())
             System.out.printf(UNSUCCESSFUL_REQ_PER_MESSAGE + "%.4f%%\n",
                     metricsSingleton.computePercentage(false));
 
         /* Top requested pages */
-        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isTopRequestedFlag())) {
+        if (!isFlagProvided || metricsSingleton.isTopRequestedFlag()) {
             printLineSeparator();
             printTopRequestedTitle();
             metricsSingleton.findTopRequestedPagesFromHashMap();
@@ -30,7 +30,7 @@ public class MetricsReport {
         }
 
         /* Top Unsuccessful */
-        if (!isFlagProvided || (isFlagProvided && metricsSingleton.isTopUnsuccessfulFlag())) {
+        if (!isFlagProvided || metricsSingleton.isTopUnsuccessfulFlag()) {
             printLineSeparator();
             printTopUnsuccessfulTitle();
             metricsSingleton.findTopUnsuccessfulPagesFromHashMap();
@@ -38,7 +38,7 @@ public class MetricsReport {
         }
 
         /* Top Hosts */
-        if(!isFlagProvided || (isFlagProvided && metricsSingleton.isTopHostsFlag())) {
+        if(!isFlagProvided || metricsSingleton.isTopHostsFlag()) {
             printLineSeparator();
             printTopHostsTitle();
             metricsSingleton.findTopTenHosts();
