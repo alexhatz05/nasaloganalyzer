@@ -19,7 +19,7 @@ class NasaLogAnalyzerTest {
     }
 
     @Test
-    void validateInput_whenFilepathNotProvided_thenReturnError() {
+    void givenFilepathNotProvided_whenValidateInput_thenErrorReturned() {
         String[] args = new String[0];
 
         Assertions.assertFalse(NasaLogAnalyzer.validateInput(args));
@@ -31,7 +31,7 @@ class NasaLogAnalyzerTest {
     }
 
     @Test
-    void validateInput_whenWrongNumberOfArgumentsProvided_thenReturnError() {
+    void givenWrongNumberOfArgumentsProvided_whenValidateInput_thenErrorReturned() {
         String[] args = new String[3];
         args[0] = "/home/rheluser/Desktop/dummylogfile";
         args[1] = "topRequested";
@@ -46,7 +46,7 @@ class NasaLogAnalyzerTest {
     }
 
     @Test
-    void validateInput_whenWrongFlagProvided_thenReturnError() {
+    void givenWrongFlagProvided_whenValidateInput_thenErrorReturned() {
         String[] args = new String[2];
         args[0] = "/home/rheluser/Desktop/dummylogfile";
         args[1] = "topDummy";
@@ -60,7 +60,7 @@ class NasaLogAnalyzerTest {
     }
 
     @Test
-    void validateInput_whenCorrectFlagProvided_thenValidateInput() {
+    void givenCorrectFlagProvided_whenValidateInput_thenNoErrorReturned() {
         String[] args = new String[2];
         args[0] = "/home/rheluser/Desktop/dummylogfile";
 
