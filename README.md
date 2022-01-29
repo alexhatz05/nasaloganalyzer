@@ -55,8 +55,13 @@ Following are some example usages:
  3) Log lines of the following format are **_not considered as malformed_** but as a normal case of a not found request:
 
     `    www-b2.proxy.aol.com - - [01/Aug/1995:01:48:29 -0400] "GET /pub/winvn/readme.txt HTTP/1.0" 404 -` 
- 4) Log lines where the request string is not exactly in the format "{request method}{single space}{request URL}{single space}{protocol}" **_are considered as malformed_**.
- 5) For features [5] & [7] both successful and unsuccessful requests have been considered in the counting. 
+    
+    However, log lines of the following format are **considered as malformed**:
+
+    `    194.96.31.69 - - [19/Aug/1995:09:06:26 -0400] "GET /software/winvn/faq HTTP/1.0" 302 -
+` 
+ 5) Log lines where the request string is not exactly in the format "{request method}{single space}{request URL}{single space}{protocol}" **_are considered as malformed_**.
+ 6) For features [5] & [7] both successful and unsuccessful requests have been considered in the counting. 
 
 
 # **Sample Output Report**
