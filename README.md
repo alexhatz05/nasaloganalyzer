@@ -36,6 +36,7 @@ The executable file can be found under the target folder after the build.
 The program can be executed using `java -jar NasaLogAnalyzer-1.0.jar` command.
 It is noted that in order to load and parse the log file, the user has to provide the relevant path in a parameter.
 NasaLogAnalyzer accepts **up to 2 parameters**, the log file path and one more option from the ones provided in the previous paragraph.
+If no option is provided apart from the log file path, the program will produce all the implemented sub-reports.
 Following are some example usages:
 
   1. `java -jar NasaLogAnalyzer-1.0.jar "/home/rheluser/Desktop/access_log_Aug95" `
