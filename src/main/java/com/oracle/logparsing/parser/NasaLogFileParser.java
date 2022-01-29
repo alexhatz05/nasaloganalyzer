@@ -14,8 +14,8 @@ public class NasaLogFileParser {
 
     private int lineCounter = 0;
 
-    public static final String LOG_FILE_LINE_REGEX = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
-    public static final String LOG_FILE_404_LINES_REGEX = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(-)";
+    public static final String LOG_FILE_LINE_REGEX = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
+    public static final String LOG_FILE_404_LINES_REGEX = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(-)";
 
     private final NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
