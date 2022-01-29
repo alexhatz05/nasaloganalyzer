@@ -11,7 +11,6 @@ import java.io.PrintStream;
 
 class NasaLogAnalyzerTest {
 
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -23,7 +22,7 @@ class NasaLogAnalyzerTest {
     void validateInput_whenFilepathNotProvided_thenReturnError() {
         String[] args = new String[0];
 
-        Assertions.assertEquals(false, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertFalse(NasaLogAnalyzer.validateInput(args));
         Assertions.assertEquals("Please, provide the log file path!",
                 outputStreamCaptor.toString().
                         replace(ConsoleColors.YELLOW_COLOUR, "").
@@ -38,7 +37,7 @@ class NasaLogAnalyzerTest {
         args[1] = "topRequested";
         args[2] = "topHosts";
 
-        Assertions.assertEquals(false, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertFalse(NasaLogAnalyzer.validateInput(args));
         Assertions.assertEquals("Please, provide correct number of arguments!",
                 outputStreamCaptor.toString().
                         replace(ConsoleColors.YELLOW_COLOUR, "").
@@ -52,7 +51,7 @@ class NasaLogAnalyzerTest {
         args[0] = "/home/rheluser/Desktop/dummylogfile";
         args[1] = "topDummy";
 
-        Assertions.assertEquals(false, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertFalse(NasaLogAnalyzer.validateInput(args));
         Assertions.assertEquals("Please, provide a correct option!",
                 outputStreamCaptor.toString().
                         replace(ConsoleColors.YELLOW_COLOUR, "").
@@ -66,38 +65,38 @@ class NasaLogAnalyzerTest {
         args[0] = "/home/rheluser/Desktop/dummylogfile";
 
         args[1] = "topRequested";
-        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertTrue(NasaLogAnalyzer.validateInput(args));
 
         args[1] = "successPercent";
-        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertTrue(NasaLogAnalyzer.validateInput(args));
 
         args[1] = "unsuccessfulPercent";
-        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertTrue(NasaLogAnalyzer.validateInput(args));
 
         args[1] = "topUnsuccessful";
-        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertTrue(NasaLogAnalyzer.validateInput(args));
 
         args[1] = "topHosts";
-        Assertions.assertEquals(true, NasaLogAnalyzer.validateInput(args));
+        Assertions.assertTrue(NasaLogAnalyzer.validateInput(args));
     }
 
     @Test
     void updateFlagOptionParamsTet() {
         NasaLogMetricsSingleton metricsSingleton = NasaLogMetricsSingleton.getInstance();
 
-        Assertions.assertEquals(false, metricsSingleton.isFlagOptionEnabled());
-        Assertions.assertEquals(false, metricsSingleton.isTopRequestedFlag());
-        Assertions.assertEquals(false, metricsSingleton.isSuccessPercentFlag());
-        Assertions.assertEquals(false, metricsSingleton.isUnsuccessfulPercentFlag());
-        Assertions.assertEquals(false, metricsSingleton.isTopUnsuccessfulFlag());
-        Assertions.assertEquals(false, metricsSingleton.isTopHostsFlag());
+        Assertions.assertFalse(metricsSingleton.isFlagOptionEnabled());
+        Assertions.assertFalse(metricsSingleton.isTopRequestedFlag());
+        Assertions.assertFalse(metricsSingleton.isSuccessPercentFlag());
+        Assertions.assertFalse(metricsSingleton.isUnsuccessfulPercentFlag());
+        Assertions.assertFalse(metricsSingleton.isTopUnsuccessfulFlag());
+        Assertions.assertFalse(metricsSingleton.isTopHostsFlag());
 
         NasaLogAnalyzer.updateFlagOptionParams("topRequested");
-        Assertions.assertEquals(true, metricsSingleton.isFlagOptionEnabled());
-        Assertions.assertEquals(true, metricsSingleton.isTopRequestedFlag());
-        Assertions.assertEquals(false, metricsSingleton.isSuccessPercentFlag());
-        Assertions.assertEquals(false, metricsSingleton.isUnsuccessfulPercentFlag());
-        Assertions.assertEquals(false, metricsSingleton.isTopUnsuccessfulFlag());
-        Assertions.assertEquals(false, metricsSingleton.isTopHostsFlag());
+        Assertions.assertTrue(metricsSingleton.isFlagOptionEnabled());
+        Assertions.assertTrue(metricsSingleton.isTopRequestedFlag());
+        Assertions.assertTrue(metricsSingleton.isSuccessPercentFlag());
+        Assertions.assertTrue(metricsSingleton.isUnsuccessfulPercentFlag());
+        Assertions.assertTrue(metricsSingleton.isTopUnsuccessfulFlag());
+        Assertions.assertTrue(metricsSingleton.isTopHostsFlag());
     }
 }

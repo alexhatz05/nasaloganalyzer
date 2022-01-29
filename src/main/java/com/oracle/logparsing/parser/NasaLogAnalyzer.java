@@ -29,7 +29,7 @@ public class NasaLogAnalyzer {
         NasaLogFileParser fileParser = new NasaLogFileParser();
         try (FileInputStream fileInputStream = new FileInputStream(args[0]);
             Scanner scanner =new Scanner( fileInputStream, "UTF-8")) {
-            fileParser.parseLogFile(fileParser.loadLogFile(args[0]));
+            fileParser.parseLogFile(scanner);
 
             /*Create the final report*/
             MetricsReport metricsReport = new MetricsReport();

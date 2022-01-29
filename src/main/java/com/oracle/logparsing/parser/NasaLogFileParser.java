@@ -4,9 +4,6 @@ import com.oracle.logparsing.model.LoggedRequest;
 import com.oracle.logparsing.model.NasaLogMetricsSingleton;
 import com.oracle.logparsing.util.ConsoleColors;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -17,27 +14,18 @@ public class NasaLogFileParser {
 
     private int lineCounter = 0;
 
-    private NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
+    public static final String LOG_FILE_LINE_REGEX = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
+    public static final String LOG_FILE_404_LINES_REGEX = "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(-)";
 
-    public static Scanner loadLogFile(String filepath) throws FileNotFoundException {
-        return new Scanner(new FileInputStream(filepath), "UTF-8");
-    }
-
-    public static String getLogFileLineRegex() {
-        return "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(\\d+)";
-    }
-
-    public static String getLogFileLineRegexForNotFound() {
-        return "(\\S+\\b)(\\s-\\s-\\s)\\[(.*)\\]\\s\"([\\w]+\\s[\\S]+\\s[\\S]+)\"\\s(\\d{3})\\s(-)";
-    }
+    private final NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
     public static boolean isValidFile(Path filepath) {
-        return Files.exists(filepath) ? true : false;
+        return Files.exists(filepath);
     }
 
-    public void parseLogFile(Scanner sc) throws IOException {
-        Pattern p = Pattern.compile(getLogFileLineRegex());
-        Pattern pNotFound = Pattern.compile(getLogFileLineRegexForNotFound());
+    public void parseLogFile(Scanner sc) {
+        Pattern p = Pattern.compile(LOG_FILE_LINE_REGEX);
+        Pattern pNotFound = Pattern.compile(LOG_FILE_404_LINES_REGEX);
 
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
@@ -70,12 +58,11 @@ public class NasaLogFileParser {
         else
             nasaLogMetricsSingleton.increaseUnsuccessfulRequests();
 
-        nasaLogMetricsSingleton.addEntryInRequestedPages(loggedRequest.getRequestURL());
-        nasaLogMetricsSingleton.addEntryInHosts(loggedRequest.getHost());
-
         if (!loggedRequest.isSuccessful())
             nasaLogMetricsSingleton.addEntryInUnsuccessfulPages(loggedRequest.getRequestURL());
 
+        nasaLogMetricsSingleton.addEntryInRequestedPages(loggedRequest.getRequestURL());
+        nasaLogMetricsSingleton.addEntryInHosts(loggedRequest.getHost());
         nasaLogMetricsSingleton.addEntryInRequestObjs(loggedRequest);
     }
 }

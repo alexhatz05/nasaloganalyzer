@@ -10,13 +10,16 @@ import java.util.stream.Collectors;
 
 public class NasaLogMetricsSingleton {
 
-    private static NasaLogMetricsSingleton nasaLogMetrics = new NasaLogMetricsSingleton();
+    private static final NasaLogMetricsSingleton nasaLogMetrics = new NasaLogMetricsSingleton();
 
-    private HashMap<String, Integer> hosts = new HashMap<>();
-    private HashMap<String, Integer> requestedPages = new HashMap<>();
-    private HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
+    private static final String URL_CONST = "[URL] ";
+    private static final String NO_OF_REQUESTS_CONST = " / [No of Requests] ";
 
-    private List<LoggedRequest> requestObjs = new ArrayList<>();
+    private final HashMap<String, Integer> hosts = new HashMap<>();
+    private final HashMap<String, Integer> requestedPages = new HashMap<>();
+    private final HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
+
+    private final List<LoggedRequest> requestObjs = new ArrayList<>();
 
     private int successfulRequests = 0;
     private int unsuccessfulRequests = 0;
@@ -37,53 +40,8 @@ public class NasaLogMetricsSingleton {
     }
 
     /*Getters and Setters*/
-
-    public HashMap<String, Integer> getRequestedPages() {
-        return requestedPages;
-    }
-
-    public void setRequestedPages(HashMap<String, Integer> requestedPages) {
-        this.requestedPages = requestedPages;
-    }
-
-    public int getSuccessfulRequests() {
-        return successfulRequests;
-    }
-
-    public void setSuccessfulRequests(int successfulRequests) {
-        this.successfulRequests = successfulRequests;
-    }
-
-    public int getUnsuccessfulRequests() {
-        return unsuccessfulRequests;
-    }
-
-    public void setUnsuccessfulRequests(int unsuccessfulRequests) {
-        this.unsuccessfulRequests = unsuccessfulRequests;
-    }
-
-    public HashMap<String, Integer> getUnsuccessfulReqPages() {
-        return unsuccessfulReqPages;
-    }
-
-    public void setUnsuccessfulReqPages(HashMap<String, Integer> unsuccessfulReqPages) {
-        this.unsuccessfulReqPages = unsuccessfulReqPages;
-    }
-
     public List<LoggedRequest> getRequestObjs() {
         return requestObjs;
-    }
-
-    public void setRequestObjs(List<LoggedRequest> requestObjs) {
-        this.requestObjs = requestObjs;
-    }
-
-    public int getTotalRequests() {
-        return totalRequests;
-    }
-
-    public void setTotalRequests(int totalRequests) {
-        this.totalRequests = totalRequests;
     }
 
     public boolean isFlagOptionEnabled() {
@@ -134,16 +92,7 @@ public class NasaLogMetricsSingleton {
         this.topHostsFlag = topHostsFlag;
     }
 
-    public HashMap<String, Integer> getHosts() {
-        return hosts;
-    }
-
-    public void setHosts(HashMap<String, Integer> hosts) {
-        this.hosts = hosts;
-    }
-
     /*Util*/
-
     public void increaseTotalRequests() {
         this.totalRequests++;
     }
@@ -183,7 +132,7 @@ public class NasaLogMetricsSingleton {
                         sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
                         limit(10)
                         .forEachOrdered(e ->
-                        System.out.println("[URL] " + e.getKey() + " / [No of Requests] " + e.getValue()));
+                        System.out.println( URL_CONST + e.getKey() + NO_OF_REQUESTS_CONST + e.getValue()));
     }
 
     public void findTopUnsuccessfulPagesFromHashMap() {
@@ -191,7 +140,7 @@ public class NasaLogMetricsSingleton {
                         stream().
                         sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
                         limit(10)
-                        .forEachOrdered(e -> System.out.println("[URL] " + e.getKey()));
+                        .forEachOrdered(e -> System.out.println(URL_CONST + e.getKey()));
     }
 
     private List<Host> findTopTenHostsList() {
@@ -222,7 +171,7 @@ public class NasaLogMetricsSingleton {
                     sorted(Map.Entry.<String, Long>comparingByValue().reversed()).
                     limit(5).
                     forEachOrdered(e ->
-                    System.out.println("[URL] " + e.getKey() + " / [No of Requests] " + e.getValue()) );
+                    System.out.println(URL_CONST + e.getKey() +  NO_OF_REQUESTS_CONST+ e.getValue()) );
         }
     }
 
