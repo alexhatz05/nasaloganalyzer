@@ -11,7 +11,7 @@ public class Host {
 
     public Host(String hostName){
         this.hostName = hostName;
-        this.totalRequests = findRequestsPerHost();
+        this.totalRequests = findRequestsOfHost();
     }
 
     public String getHostName() {
@@ -35,12 +35,12 @@ public class Host {
         totalRequests.put(hostname, totalRequests.containsKey(hostname) ? totalRequests.get(hostname) + 1 : 1);
     }
 
-    private Map<String, Long> findRequestsPerHost() {
+    private Map<String, Long> findRequestsOfHost() {
         return metricsSingleton.getRequestObjs().
                 stream().
                 filter(loggedRequest -> loggedRequest.getHost().
                 equals(this.hostName)).
-                map(LoggedRequest::getRequest).
+                map(LoggedRequest::getRequestURL).
                 collect(Collectors.groupingBy(k->k, Collectors.counting()));
     }
 

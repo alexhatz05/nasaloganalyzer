@@ -1,5 +1,7 @@
 package com.oracle.logparsing.model;
 
+import com.oracle.logparsing.util.ConsoleColors;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -213,6 +215,8 @@ public class NasaLogMetricsSingleton {
         List<Host> topTenHosts = findTopTenHostsList();
 
         for(Host host: topTenHosts) {
+            System.out.println(ConsoleColors.PURPLE_BOLD + "[Hostname] " + host.getHostName() +ConsoleColors.RESET_COLOUR);
+
             host.getRequests().entrySet().
                     stream().
                     sorted(Map.Entry.<String, Long>comparingByValue().reversed()).

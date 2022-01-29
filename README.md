@@ -31,7 +31,12 @@ The executable file can be found under the target folder after the build.
  - **topUnsuccessful**:     _This is the **optional** flag that has to be used for informing the parser to report only the top 10 unsuccessful page requests;_ 
  - **topHosts**:            _This is the **optional** flag that has to be used for informing the parser to report only the 10 hosts making the most request, with their IP address and number of requests made._ 
 
-**Example usage**
+**Usage with Examples**
+
+The program can be executed using `java -jar NasaLogAnalyzer-1.0.jar` command.
+It is noted that in order to load and parse the log file, the user has to provide the relevant path in a parameter.
+NasaLogAnalyzer accepts **up to 2 parameters**, the log file path and one more option from the ones provided in the previous paragraph.
+Following are some example usages:
 
   1. `java -jar NasaLogAnalyzer-1.0.jar "/home/rheluser/Desktop/access_log_Aug95" `
   2. `java -jar NasaLogAnalyzer-1.0.jar "/home/rheluser/Desktop/access_log_Aug95" successPercent`
