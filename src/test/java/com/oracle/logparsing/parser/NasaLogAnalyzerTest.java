@@ -94,9 +94,9 @@ class NasaLogAnalyzerTest {
         NasaLogAnalyzer.updateFlagOptionParams("topRequested");
         Assertions.assertTrue(metricsSingleton.isFlagOptionEnabled());
         Assertions.assertTrue(metricsSingleton.isTopRequestedFlag());
-        Assertions.assertTrue(metricsSingleton.isSuccessPercentFlag());
-        Assertions.assertTrue(metricsSingleton.isUnsuccessfulPercentFlag());
-        Assertions.assertTrue(metricsSingleton.isTopUnsuccessfulFlag());
-        Assertions.assertTrue(metricsSingleton.isTopHostsFlag());
+        Assertions.assertFalse(metricsSingleton.isSuccessPercentFlag());
+        Assertions.assertFalse(metricsSingleton.isUnsuccessfulPercentFlag());
+        Assertions.assertFalse(metricsSingleton.isTopUnsuccessfulFlag());
+        Assertions.assertFalse(metricsSingleton.isTopHostsFlag());
     }
 }
