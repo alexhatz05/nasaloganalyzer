@@ -4,8 +4,10 @@ import com.oracle.logparsing.model.MetricsReport;
 import com.oracle.logparsing.model.NasaLogMetricsSingleton;
 import com.oracle.logparsing.util.ConsoleColors;
 
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class NasaLogAnalyzer {
 
@@ -18,25 +20,26 @@ public class NasaLogAnalyzer {
         if (args.length == 2)
             updateFlagOptionParams(args[1]);
 
-        Path filePath = NasaLogFileParser.loadLogFile(args[0]);
-        if (!NasaLogFileParser.isValidFile(filePath)){
+        if (!NasaLogFileParser.isValidFile(Paths.get(args[0]))) {
             System.out.println("Wrong log file path provided!");
             System.exit(0);
         }
 
         /*Parse the file and compute the metrics*/
         NasaLogFileParser fileParser = new NasaLogFileParser();
-        try {
-            fileParser.parseLogFile(filePath);
+        try (FileInputStream fileInputStream = new FileInputStream(args[0]);
+            Scanner scanner =new Scanner( fileInputStream, "UTF-8")) {
+            fileParser.parseLogFile(fileParser.loadLogFile(args[0]));
+
+            /*Create the final report*/
+            MetricsReport metricsReport = new MetricsReport();
+            metricsReport.printReportsTitle();
+            metricsReport.produceMetricsReport();
         }
         catch (IOException e) {
             e.printStackTrace();
         }
 
-        /*Create the final report*/
-        MetricsReport metricsReport = new MetricsReport();
-        metricsReport.printReportsTitle();
-        metricsReport.produceMetricsReport();
     }
 
     public static void updateFlagOptionParams(String option) {

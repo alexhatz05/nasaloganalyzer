@@ -4,12 +4,12 @@ import com.oracle.logparsing.model.LoggedRequest;
 import com.oracle.logparsing.model.NasaLogMetricsSingleton;
 import com.oracle.logparsing.util.ConsoleColors;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,9 +19,8 @@ public class NasaLogFileParser {
 
     private NasaLogMetricsSingleton nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
 
-    public static Path loadLogFile(String filepath) {
-        Path filePath = Paths.get(filepath);
-        return filePath;
+    public static Scanner loadLogFile(String filepath) throws FileNotFoundException {
+        return new Scanner(new FileInputStream(filepath), "UTF-8");
     }
 
     public static String getLogFileLineRegex() {
@@ -36,20 +35,20 @@ public class NasaLogFileParser {
         return Files.exists(filepath) ? true : false;
     }
 
-    public void parseLogFile(Path filePath) throws IOException {
-        List<String> lines = Files.readAllLines(filePath, StandardCharsets.ISO_8859_1);
-        for (String line : lines) {
+    public void parseLogFile(Scanner sc) throws IOException {
+        Pattern p = Pattern.compile(getLogFileLineRegex());
+        Pattern pNotFound = Pattern.compile(getLogFileLineRegexForNotFound());
+
+        while (sc.hasNextLine()) {
+            String line = sc.nextLine();
             lineCounter++;
 
-            Pattern p = Pattern.compile(getLogFileLineRegex());
             Matcher matcher = p.matcher(line);
-
-            Pattern pNotFound = Pattern.compile(getLogFileLineRegexForNotFound());
             Matcher matcherNotFound = pNotFound.matcher(line);
 
             if (!matcher.matches() && !matcherNotFound.matches()) {
-                System.out.println(
-                        ConsoleColors.RED_COLOUR + "[Line " + lineCounter + "] ERROR! Malformed line" + ConsoleColors.RESET_COLOUR);
+                System.out.println(ConsoleColors.RED_COLOUR + "[Line " + lineCounter + "] ERROR! Malformed line" +
+                        ConsoleColors.RESET_COLOUR);
                 continue;
             }
 
