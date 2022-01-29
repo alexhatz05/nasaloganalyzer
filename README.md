@@ -60,6 +60,8 @@ Following are some example usages:
 
 
 # **Sample Output Report**
+_(The values are indicative)_
+
 ```
 ********************
 *** Final Report ***
