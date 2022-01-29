@@ -6,7 +6,7 @@ public class MetricsReport {
 
     private static final String SUCCESSFUL_REQ_PER_MESSAGE = "Percentage of successful requests: ";
     private static final String UNSUCCESSFUL_REQ_PER_MESSAGE = "Percentage of unsuccessful requests: ";
-    private NasaLogMetricsSingleton metricsSingleton = NasaLogMetricsSingleton.getInstance();
+    private final NasaLogMetricsSingleton metricsSingleton = NasaLogMetricsSingleton.getInstance();
 
     public void produceMetricsReport() {
         boolean isFlagProvided = metricsSingleton.isFlagOptionEnabled();
