@@ -60,8 +60,8 @@ Following are some example usages:
 
 
 # **Sample Output Report**
-
-`********************
+```
+********************
 *** Final Report ***
 ********************
 Percentage of successful requests: 99.3545%
@@ -156,5 +156,6 @@ Top 10 Hosts**********************************************************
 [URL] /images/KSC-logosmall.gif / [No of Requests] 147
 [URL] /images/ksclogo-medium.gif / [No of Requests] 116
 [URL] /images/USA-logosmall.gif / [No of Requests] 116
-[URL] /images/MOSAIC-logosmall.gif / [No of Requests] 116`
+[URL] /images/MOSAIC-logosmall.gif / [No of Requests] 116
 **********************************************************************
+```
