@@ -92,6 +92,18 @@ public class NasaLogMetricsSingleton {
         this.topHostsFlag = topHostsFlag;
     }
 
+    public void setSuccessfulRequests(int successfulRequests) {
+        this.successfulRequests = successfulRequests;
+    }
+
+    public void setUnsuccessfulRequests(int unsuccessfulRequests) {
+        this.unsuccessfulRequests = unsuccessfulRequests;
+    }
+
+    public void setTotalRequests(int totalRequests) {
+        this.totalRequests = totalRequests;
+    }
+
     /*Util*/
     public void increaseTotalRequests() {
         this.totalRequests++;
