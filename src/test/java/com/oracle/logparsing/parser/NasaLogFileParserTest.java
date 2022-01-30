@@ -18,7 +18,6 @@ class NasaLogFileParserTest {
     void givenCorrectlyFormattedLine_whenLogFileLineRegex_thenMatches() {
         String input = "in24.inetnebr.com - - [01/Aug/1995:00:00:01 -0400] \"GET /shuttle/missions/sts-68/news/sts-68-mcc-05.txt HTTP/1.0\" 200 1839";
         boolean matches = input.matches(NasaLogFileParser.LOG_FILE_LINE_REGEX);
-
         Assertions.assertTrue(matches);
     }
 
@@ -26,7 +25,6 @@ class NasaLogFileParserTest {
     void givenMalformedLine_whenLogFileLineRegex_thenNoMatch() {
         String input = "google.com - - [01/Aug/1995:00:00:01 -0400] \"GET\" 500 -";
         boolean matches = input.matches(NasaLogFileParser.LOG_FILE_LINE_REGEX);
-
         Assertions.assertFalse(matches);
     }
 
@@ -34,12 +32,10 @@ class NasaLogFileParserTest {
     void givenNotFoundRequestLine_whenLogFile404LinesRegex_thenMatches() {
         String input = "in24.inetnebr.com - - [01/Aug/1995:00:00:01 -0400] \"GET /shuttle/missions/sts-68/news/sts-68-mcc-05.txt HTTP/1.0\" 404 -";
         boolean matches = input.matches(NasaLogFileParser.LOG_FILE_404_LINES_REGEX);
-
         Assertions.assertTrue(matches);
 
         input = "in24.inetnebr.com - - [01/Aug/1995:00:00:01 -0400] \"GET /shuttle/missions/sts-68/news/sts-68-mcc-05.txt HTTP/1.0\" 500 -";
         matches = input.matches(NasaLogFileParser.LOG_FILE_404_LINES_REGEX);
-
         Assertions.assertTrue(matches);
     }
 
@@ -47,12 +43,10 @@ class NasaLogFileParserTest {
     void givenMalformedLine_whenLogFile404LinesRegex_thenNoMatch() {
         String input = "google.com - - [01/Aug/1995:00:00:01 -0400] \"GET\" 500 -";
         boolean matches = input.matches(NasaLogFileParser.LOG_FILE_404_LINES_REGEX);
-
         Assertions.assertFalse(matches);
 
         input = "194.96.31.69 - - [19/Aug/1995:09:06:54 -0400] \"GET /software/winvn HTTP/1.0\" 302 -";
         matches = input.matches(NasaLogFileParser.LOG_FILE_404_LINES_REGEX);
-
         Assertions.assertFalse(matches);
     }
 
