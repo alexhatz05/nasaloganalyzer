@@ -19,7 +19,7 @@ public class NasaLogMetricsSingleton {
     private final HashMap<String, Integer> requestedPages = new HashMap<>();
     private final HashMap<String, Integer> unsuccessfulReqPages = new HashMap<>();
 
-    private final List<LoggedRequest> requestObjs = new ArrayList<>();
+    private List<LoggedRequest> requestObjs = new ArrayList<>();
 
     private int successfulRequests = 0;
     private int unsuccessfulRequests = 0;
@@ -42,6 +42,10 @@ public class NasaLogMetricsSingleton {
     /*Getters and Setters*/
     public List<LoggedRequest> getRequestObjs() {
         return requestObjs;
+    }
+
+    void setRequestObjs(List<LoggedRequest> loggedRequestList) {
+        this.requestObjs = loggedRequestList;
     }
 
     public boolean isFlagOptionEnabled() {

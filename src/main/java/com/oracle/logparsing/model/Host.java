@@ -23,7 +23,7 @@ public class Host {
     }
 
     /* Util */
-    private Map<String, Long> findRequestsOfHost() {
+    public Map<String, Long> findRequestsOfHost() {
         return metricsSingleton.getRequestObjs().
                 stream().
                 filter(loggedRequest -> loggedRequest.getHost().
