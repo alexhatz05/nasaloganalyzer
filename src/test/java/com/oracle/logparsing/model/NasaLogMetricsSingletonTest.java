@@ -3,14 +3,13 @@ package com.oracle.logparsing.model;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 
 class NasaLogMetricsSingletonTest {
 
     private NasaLogMetricsSingleton nasaLogMetricsSingleton;
 
     @BeforeEach
-    void init(TestInfo info){
+    void init(){
         nasaLogMetricsSingleton = NasaLogMetricsSingleton.getInstance();
         nasaLogMetricsSingleton.setSuccessfulRequests(500);
         nasaLogMetricsSingleton.setUnsuccessfulRequests(100);
